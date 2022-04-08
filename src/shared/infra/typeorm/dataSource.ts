@@ -4,11 +4,12 @@ import { DataSource } from 'typeorm';
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DATABASE_HOST,
-  port: 5432,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_DB,
+  url: process.env.DATABASE_URL,
+  // host: process.env.DATABASE_HOST,
+  // port: 5432,
+  // username: process.env.DATABASE_USER,
+  // password: process.env.DATABASE_PASSWORD,
+  // database: process.env.DATABASE_DB,
   migrations: [
     process.env.NODE_ENV === 'prod'
       ? 'dist/shared/infra/typeorm/migrations/*.js'
@@ -20,4 +21,5 @@ export const dataSource = new DataSource({
       : './src/modules/**/entities/*.ts',
   ],
   migrationsRun: true,
+  extra: { ssl: true },
 });
