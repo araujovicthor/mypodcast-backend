@@ -36,4 +36,21 @@ describe('UpdateCategoryService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to update a category to title that already exists', async () => {
+    await fakeCategoryRepository.create({
+      title: 'Finanças',
+    });
+
+    const category = await fakeCategoryRepository.create({
+      title: 'Educação',
+    });
+
+    await expect(
+      updateCategoryService.execute({
+        id: category.id,
+        title: 'Finanças',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

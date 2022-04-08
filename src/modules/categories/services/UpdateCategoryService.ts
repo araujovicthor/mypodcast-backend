@@ -25,6 +25,15 @@ class UpdateCategoryService {
       throw new AppError('Category does not exists', 404);
     }
 
+    if (title !== findCategory.title) {
+      const findCategoryWithSameTitle =
+        await this.categoryRepository.findByTitle(title);
+
+      if (findCategoryWithSameTitle) {
+        throw new AppError('Already exists categories with this title');
+      }
+    }
+
     const updateCategory = await this.categoryRepository.save({
       ...findCategory,
       title,
