@@ -21,5 +21,10 @@ export const dataSource = new DataSource({
       : './src/modules/**/entities/*.ts',
   ],
   migrationsRun: true,
-  extra: { ssl: true },
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 });
