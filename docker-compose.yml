@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres
+    container_name: database_mypodcast
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mypodcast
+    volumes:
+      - pgdata:/data/postgres
+    network_mode: bridge
+
+  #redis:
+  #  image: redis:alpine
+  #  ports:
+  #    - 6379:6379
+  #  network_mode: bridge
+
+  app:
+    build: .
+    container_name: mypodcast
+    restart: always
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+    network_mode: bridge
+    links:
+      - database
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
+    driver: local
