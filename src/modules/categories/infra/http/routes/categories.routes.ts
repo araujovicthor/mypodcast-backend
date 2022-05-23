@@ -3,13 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import CategoriesController from '../controller/CategoriesController';
 
-import ensureAutheticated from '@modules/users/infra/http/middlewares/ensureAutheticated';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import isAdmin from '@modules/users/infra/http/middlewares/isAdmin';
 
 const categoriesRouter = Router();
 const categoriesController = new CategoriesController();
 
-categoriesRouter.use(ensureAutheticated);
+categoriesRouter.use(ensureAuthenticated);
 
 categoriesRouter.get('/', categoriesController.list);
 

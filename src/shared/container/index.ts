@@ -9,9 +9,25 @@ import UserRepository from '@modules/users/infra/typeorm/repositories/UserReposi
 import ICategoryRepository from '@modules/categories/repositories/ICategoryRepository';
 import CategoryRepository from '@modules/categories/infra/typeorm/repositories/CategoryRepository';
 
+import IChannelRepository from '@modules/channels/repositories/IChannelRepository';
+import ChannelRepository from '@modules/channels/infra/typeorm/repositories/ChannelRepository';
+
+import IFollowRepository from '@modules/channels/repositories/IFollowRepository';
+import FollowRepository from '@modules/channels/infra/typeorm/repositories/FollowRepository';
+
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository);
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
   CategoryRepository,
+);
+
+container.registerSingleton<IChannelRepository>(
+  'ChannelRepository',
+  ChannelRepository,
+);
+
+container.registerSingleton<IFollowRepository>(
+  'FollowRepository',
+  FollowRepository,
 );

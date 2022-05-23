@@ -1,3 +1,4 @@
+import CategoriesChannels from '@modules/channels/infra/typeorm/entities/CategoriesChannels';
 import {
   Entity,
   Column,
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('categories')
@@ -14,6 +16,12 @@ class Category {
 
   @Column()
   title: string;
+
+  @OneToMany(
+    () => CategoriesChannels,
+    categoriesChannels => categoriesChannels.category,
+  )
+  categoriesChannels: CategoriesChannels[];
 
   @CreateDateColumn()
   createdAt: Date;
