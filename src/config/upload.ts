@@ -77,7 +77,7 @@ export default {
       file: Express.Multer.File,
       callback: (error: AppError | null, next: boolean) => void,
     ): void => {
-      if (file.mimetype === 'audio/mp3') {
+      if (file.mimetype === 'audio/mpeg') {
         return callback(null, true);
       }
       return callback(new AppError('Only .mp3 format allowed!'), false);

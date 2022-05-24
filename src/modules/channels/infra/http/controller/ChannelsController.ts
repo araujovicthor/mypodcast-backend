@@ -11,12 +11,15 @@ import DeleteChannelService from '@modules/channels/services/DeleteChannelServic
 
 export default class ChannelsController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const { categoryId } = request.query;
+    const userId = request.user.id;
+
+    const { categoryId, favorites } = request.query;
 
     const listChannels = container.resolve(ListChannelsService);
 
     const channels = await listChannels.execute({
       categoryId: categoryId && String(categoryId),
+      userId: Boolean(favorites) === true ? userId : undefined,
     });
 
     return response.json(instanceToInstance(channels));

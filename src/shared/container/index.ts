@@ -15,6 +15,9 @@ import ChannelRepository from '@modules/channels/infra/typeorm/repositories/Chan
 import IFollowRepository from '@modules/channels/repositories/IFollowRepository';
 import FollowRepository from '@modules/channels/infra/typeorm/repositories/FollowRepository';
 
+import IPodcastRepository from '@modules/podcasts/repositories/IPodcastRepository';
+import PodcastRepository from '@modules/podcasts/infra/typeorm/repositories/PodcastRepository';
+
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository);
 
 container.registerSingleton<ICategoryRepository>(
@@ -30,4 +33,9 @@ container.registerSingleton<IChannelRepository>(
 container.registerSingleton<IFollowRepository>(
   'FollowRepository',
   FollowRepository,
+);
+
+container.registerSingleton<IPodcastRepository>(
+  'PodcastRepository',
+  PodcastRepository,
 );

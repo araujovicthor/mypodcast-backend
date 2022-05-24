@@ -16,6 +16,7 @@ import uploadConfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
 import CategoriesChannels from './CategoriesChannels';
 import Follow from './Follow';
+import Podcast from '@modules/podcasts/infra/typeorm/entities/Podcast';
 
 @Entity('channels')
 class Channel {
@@ -50,6 +51,9 @@ class Channel {
     cascade: true,
   })
   follow: Follow[];
+
+  @OneToMany(() => Podcast, podcast => podcast.channel)
+  podcasts: Podcast[];
 
   @Column()
   @Exclude()

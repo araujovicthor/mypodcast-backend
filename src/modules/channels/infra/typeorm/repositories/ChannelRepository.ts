@@ -13,9 +13,9 @@ class ChannelRepository implements IChannelRepository {
     this.ormRepository = dataSource.getRepository(Channel);
   }
 
-  public async list(categoryId?: string): Promise<Channel[]> {
+  public async list(categoryId?: string, userId?: string): Promise<Channel[]> {
     const channels = await this.ormRepository.find({
-      where: { categoriesChannels: { categoryId } },
+      where: { categoriesChannels: { categoryId }, follow: { userId } },
     });
 
     return channels;
@@ -26,6 +26,7 @@ class ChannelRepository implements IChannelRepository {
       where: {
         id,
       },
+      relations: ['podcasts'],
     });
 
     return findChannel;

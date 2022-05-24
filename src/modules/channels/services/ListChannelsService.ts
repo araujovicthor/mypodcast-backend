@@ -6,6 +6,7 @@ import IChannelRepository from '../repositories/IChannelRepository';
 
 interface IRequest {
   categoryId?: string;
+  userId?: string;
 }
 
 @injectable()
@@ -15,8 +16,8 @@ class ListChannelsService {
     private channelRepository: IChannelRepository,
   ) {}
 
-  public async execute({ categoryId }: IRequest): Promise<Channel[]> {
-    const channels = await this.channelRepository.list(categoryId);
+  public async execute({ categoryId, userId }: IRequest): Promise<Channel[]> {
+    const channels = await this.channelRepository.list(categoryId, userId);
 
     return channels;
   }

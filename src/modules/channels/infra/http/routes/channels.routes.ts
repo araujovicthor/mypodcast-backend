@@ -24,6 +24,7 @@ channelsRouter.get(
   celebrate({
     [Segments.QUERY]: {
       categoryId: Joi.string().uuid(),
+      favorites: Joi.bool(),
     },
   }),
   channelsController.list,
