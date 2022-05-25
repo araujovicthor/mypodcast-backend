@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import FollowChannelService from '@modules/channels/services/FollowChannelService';
+import { instanceToInstance } from 'class-transformer';
 
 export default class ChannelsAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -10,11 +11,11 @@ export default class ChannelsAvatarController {
 
     const followChannel = container.resolve(FollowChannelService);
 
-    await followChannel.execute({
+    const channel = await followChannel.execute({
       userId,
       channelId,
     });
 
-    return response.json();
+    return response.json(instanceToInstance(channel));
   }
 }

@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import IChannelRepository from '../repositories/IChannelRepository';
 import IFollowRepository from '../repositories/IFollowRepository';
+import Channel from '../infra/typeorm/entities/Channel';
 
 interface IRequest {
   userId: string;
@@ -20,7 +21,7 @@ class FollowChannelService {
     private followRepository: IFollowRepository,
   ) {}
 
-  public async execute({ userId, channelId }: IRequest): Promise<void> {
+  public async execute({ userId, channelId }: IRequest): Promise<Channel> {
     const findChannel = await this.channelRepository.findById(channelId);
 
     if (!findChannel) {
@@ -34,11 +35,15 @@ class FollowChannelService {
 
     if (findFollow) {
       await this.followRepository.delete(findFollow);
-      return;
+
+      findChannel.userFollow = false;
+      return findChannel;
     }
 
     await this.followRepository.create({ userId, channelId });
-    return;
+
+    findChannel.userFollow = true;
+    return findChannel;
   }
 }
 
